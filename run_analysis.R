@@ -52,6 +52,8 @@ prepare_source_files <- function() {
     invisible()
 }
 
+### This function provides reusability for
+### combining the training and test data
 combine_train_test <- function(filename_prefix, colClasses) {
     train_filename <- paste('UCI HAR Dataset/',
                             'train/',
