@@ -70,7 +70,9 @@ combine_train_test <- function(filename_prefix, colClasses) {
     rbind(train_data, test_data)
 }
 
-# Combined train and test data
+prepare_source_files()
+
+# Combine train and test data
 measures <- combine_train_test('X_', 'numeric')
 activities <- combine_train_test('y_', 'integer')
 subjects <- combine_train_test('subject_', 'integer')
