@@ -72,22 +72,57 @@ combine_train_test <- function(filename_prefix, colClasses) {
 
 prepare_source_files()
 
+####################################################################
+### 1a. Merges the training and the test sets to create one data set.
+####################################################################
+
 # Combine train and test data
 measures <- combine_train_test('X_', 'numeric')
 activities <- combine_train_test('y_', 'integer')
 subjects <- combine_train_test('subject_', 'integer')
 
+####################################################################
+### 2. Extracts only the measurements on the mean and
+###    standard deviation for each measurement.
+####################################################################
+
+message("Extracting only mean() and std() variables")
 # Features
 features <- read.table('UCI HAR Dataset//features.txt',
                        col.names=c('colIndex', 'feature'),
                        stringsAsFactors=FALSE)
+# Assummed requirement is capture only measures
+# that have mean() or std() in the name
 features$is_mean_std <- grepl('(mean|std)\\(\\)',
                               features$feature,
                               perl=TRUE)
-colIndex_mean_std <- features[features$is_mean_std, ]$colIndex
-col_clean_names <- gsub('\\(|\\)', '',
-                        features[colIndex_mean_std, ]$feature,
-                        perl=TRUE)
+col_index_mean_std <- features[features$is_mean_std, ]$colIndex
+measures <- measures[, col_index_mean_std]
 
-measures <- measures[, colIndex_mean_std]
+####################################################################
+### 4. Appropriately labels the data set with descriptive
+###    variable names. 
+####################################################################
+
+message("Cleaning up variable names")
+# Force to valid R names
+col_clean_names <- make.names(features[col_index_mean_std, ]$feature)
+# General name cleanup
+col_clean_names <- gsub('\\.+', '.', col_clean_names, perl=TRUE)
+col_clean_names <- gsub('\\.+$', '', col_clean_names, perl=TRUE)
+# Swap axis and measure type
+col_clean_names <- sub('(mean|std)\\.([XYZ])',
+                       '\\2.\\1',
+                       col_clean_names,
+                       perl=TRUE)
+
 names(measures) <- col_clean_names
+names(activities) <- c("activity_reference")
+names(subjects) <- c("subject")
+
+####################################################################
+### 1b. Merges the training and the test sets to create one data set.
+####################################################################
+
+message("Final combination of subjects, activities and measures")
+combined <- cbind(subjects, activities, measures)
