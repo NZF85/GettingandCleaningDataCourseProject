@@ -63,6 +63,7 @@ combine_train_test <- function(filename_prefix, colClasses) {
                             'test/',
                             filename_prefix,
                             'test.txt', sep="")
+    message("Combining ", train_filename, " and ", test_filename)
     train_data <- read.table(train_filename, colClasses=colClasses)
     test_data <- read.table(train_filename, colClasses=colClasses)
 
