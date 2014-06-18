@@ -1,3 +1,5 @@
+library(reshape2)
+
 SOURCE_URL = 'https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip'
 SOURCE_DEST = 'getdata_projectfiles_UCI_HAR_Dataset.zip'
 SOURCE_MANIFEST <- c('UCI HAR Dataset/',
@@ -119,12 +121,39 @@ col_clean_names <- sub('(mean|std)\\.([XYZ])',
                        perl=TRUE)
 
 names(measures) <- col_clean_names
-names(activities) <- c("activity_reference")
+names(activities) <- c("activity_id")
 names(subjects) <- c("subject")
 
 ####################################################################
 ### 1b. Merges the training and the test sets to create one data set.
 ####################################################################
 
-message("Final combination of subjects, activities and measures")
+message("--- Final combination of subjects, activities and measures")
 combined <- cbind(subjects, activities, measures)
+# Make data long format
+combined <- melt(combined, id.vars=c("activity_id", "subject"))
+
+####################################################################
+### 3. Uses descriptive activity names to name the activities
+###    in the data set.
+####################################################################
+message("--- Merging in descriptive activity names.")
+activity_names <- read.table('UCI HAR Dataset//activity_labels.txt')
+names(activity_names) <- c("activity_id", "activity_description")
+
+combined <- merge(combined, activity_names, by="activity_id")
+
+####################################################################
+### 5. Creates a second, independent tidy data set with the average
+###    of each variable for each activity and each subject. 
+####################################################################
+message("--- Compute average by subject, activity, and variable")
+tidy_data <- aggregate(combined['value'],
+                       by=list(subject=combined$subject,
+                               activity=combined$activity_description,
+                               variable=combined$variable),
+                       FUN=mean)
+names(tidy_data) <- sub('value', 'average', names(tidy_data))
+
+message("--- Writing to tidy_data.txt")
+write.table(tidy_data, 'tidy_data.txt', row.names=FALSE)
