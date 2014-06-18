@@ -70,12 +70,14 @@ combine_train_test <- function(filename_prefix, colClasses) {
     rbind(train_data, test_data)
 }
 
+message('--- Preparing original source data')
 prepare_source_files()
 
 ####################################################################
 ### 1a. Merges the training and the test sets to create one data set.
 ####################################################################
 
+message('--- Combining train and test data')
 # Combine train and test data
 measures <- combine_train_test('X_', 'numeric')
 activities <- combine_train_test('y_', 'integer')
@@ -86,7 +88,7 @@ subjects <- combine_train_test('subject_', 'integer')
 ###    standard deviation for each measurement.
 ####################################################################
 
-message("Extracting only mean() and std() variables")
+message("--- Extracting only mean() and std() variables")
 # Features
 features <- read.table('UCI HAR Dataset//features.txt',
                        col.names=c('colIndex', 'feature'),
@@ -104,7 +106,7 @@ measures <- measures[, col_index_mean_std]
 ###    variable names. 
 ####################################################################
 
-message("Cleaning up variable names")
+message("--- Cleaning up variable names")
 # Force to valid R names
 col_clean_names <- make.names(features[col_index_mean_std, ]$feature)
 # General name cleanup
