@@ -2,3 +2,5 @@
 *.zip
 UCI\ HAR\ Dataset/
 .Rhistory
+.RData
+tidy_data.txt
