@@ -62,7 +62,7 @@ separate column header.  This allows for some scalability without dramatically a
 
 The course assignment did not explicitly exclude features such as *tBodyAccJerkMean*, however
 for parsimony, the script only includes the feature that end with mean() or std(), as these features
-have both mean and standard deviation measures, where as the *tBodyAccJerkMean* has not standard deviation
+have both mean and standard deviation measures, where as the *tBodyAccJerkMean* has no standard deviation
 analogue.
 
 ## Rationale for feature naming in tidy data
