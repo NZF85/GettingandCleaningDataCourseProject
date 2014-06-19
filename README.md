@@ -3,37 +3,38 @@
 Course Project for Coursera Getting and Cleaning Data
 
 The result of running the *run_analysis.R* script is the tidy_data.txt file, which
-is a space delimited with header text file which can be read into R
+is a space delimited with header text file.
+
+From the repository, you can run:
+```bash
+Rscript run_analysis.R
+```
+
+*tidy_data.txt* can be read into R:
 ```R
 read.table('tidy_data.txt', header=TRUE)
 ```
+
+This was tested on R version 3.1.0 on Mac OSX 10.9.3
 
 ## Objective:
 Produce a tidy data set from the "Human Activity Recognition Using Smartphones Dataset"
 Version 1.0.
 
 > You should create one R script called run_analysis.R that does the following:
+>
 > 1. Merges the training and the test sets to create one data set.
+>
 > 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+>
 > 3. Uses descriptive activity names to name the activities in the data set
+>
 > 4. Appropriately labels the data set with descriptive variable names. 
+>
 > 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
 
 Note that since #5 is the only step that discusses the tidy data, the resulting tidy_data.txt
 file is the one submitted for the course project.
-
-## Producing the tidy data
-From the repository, you can run:
-```bash
-Rscript run_analysis.R
-```
-
-The script will download the data file, unzip the file contents and process the data
-to produce **tidy_data.txt**
-
-This was tested on R version 3.1.0 on Mac OSX 10.9.3
-
-Once produced, the data can be
 
 ## tidy_data.txt fulfills *Tidy Data* requirements
 
