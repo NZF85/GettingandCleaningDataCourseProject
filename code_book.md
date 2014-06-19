@@ -8,6 +8,10 @@ Coursera "Getting and Cleaning Data" course project.
 Original source data was retrieved from
 https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 
+> Human Activity Recognition Using Smartphones Dataset
+>
+> Version 1.0
+
 From the source data readme.txt
 > The experiments have been carried out with a group of 30 volunteers within an
 > age bracket of 19-48 years. Each person performed six activities (WALKING,
@@ -18,6 +22,8 @@ From the source data readme.txt
 > to label the data manually. The obtained dataset has been randomly partitioned
 > into two sets, where 70% of the volunteers was selected for generating the
 > training data and 30% the test data. 
+
+This data set includes only data on the mean and standard deviation features
 
 ## Variables
 
