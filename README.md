@@ -17,6 +17,9 @@ read.table('tidy_data.txt', header=TRUE)
 
 This was tested on R version 3.1.0 on Mac OSX 10.9.3
 
+Note that the *run_analysis.R* script will look first for source files in ```UCI HAR Dataset/``` path,
+and download the files from the internet if necessary
+
 ## Objective:
 Produce a tidy data set from the "Human Activity Recognition Using Smartphones Dataset"
 Version 1.0.
